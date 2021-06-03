@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'eclipse'
 	id 'jacoco'
+	id "org.sonarqube" version "3.0"
 }
 group = 'io.reflectoring'
 version = '0.0.1-SNAPSHOT'
@@ -37,4 +38,14 @@ test {
 }
 jacocoTestReport {
     dependsOn test
+    reports {
+        xml.enabled true
+    }
 }
+sonarqube {
+    properties {
+        property "sonar.projectName", "Spring :: Mocking :: SonarQube Scanner for Gradle"
+       // property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "D:/gitrepos/code-examples/spring-boot/mocking/build/reports/jacoco/test/jacocoTestReport.xml"
+    }
+    }
