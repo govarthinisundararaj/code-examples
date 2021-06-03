@@ -1,19 +1,22 @@
 package io.reflectoring.mocking;
 
-import io.reflectoring.mocking.SendMoneyUseCase.SendMoneyCommand;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.Java6Assertions.*;
-import static org.mockito.BDDMockito.*;
+import io.reflectoring.mocking.SendMoneyUseCase.SendMoneyCommand;
 
 class SendMoneyControllerPlainTest {
 
   private SendMoneyUseCase sendMoneyUseCase = Mockito.mock(SendMoneyUseCase.class);
 
-  private SendMoneyController sendMoneyController = new SendMoneyController(sendMoneyUseCase);
+  private SendMoneyController sendMoneyController = new SendMoneyController();
 
   @Test
   void testSuccess(){

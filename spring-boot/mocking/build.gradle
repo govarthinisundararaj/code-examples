@@ -2,32 +2,39 @@ plugins {
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'eclipse'
+	id 'jacoco'
 }
-
 group = 'io.reflectoring'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
 repositories {
 	jcenter()
+	mavenCentral()
 }
+jar {
 
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	testCompile('org.junit.jupiter:junit-jupiter:5.4.0')
-	testCompile('org.junit.platform:junit-platform-launcher:1.4.0')
-	testCompile('org.mockito:mockito-junit-jupiter:2.23.0')
-	testCompile('de.adesso:junit-insights:1.0.0')
-
+	testImplementation'org.junit.jupiter:junit-jupiter:5.4.0'
+	testImplementation 'org.junit.platform:junit-platform-launcher:1.4.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 }
-
 test {
-	systemProperty 'de.adesso.junitinsights.enabled', 'true'
+  systemProperty 'de.adesso.junitinsights.enabled', 'true'
 	systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+	filter {
+	include 'io/reflectoring/mocking/**JUnitJupiterTest.class'
+	}
+    //exclude '**/mocking/**Test.java'
 	useJUnitPlatform()
+	ignoreFailures = true
+    finalizedBy jacocoTestReport
 }
-
+jacocoTestReport {
+    dependsOn test
+}

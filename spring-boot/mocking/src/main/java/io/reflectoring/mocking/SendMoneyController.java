@@ -1,19 +1,21 @@
 package io.reflectoring.mocking;
 
-import io.reflectoring.mocking.SendMoneyUseCase.SendMoneyCommand;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.reflectoring.mocking.SendMoneyUseCase.SendMoneyCommand;
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequiredArgsConstructor
+
 public class SendMoneyController {
 
-  private final SendMoneyUseCase sendMoneyUseCase;
-
+	
+	private SendMoneyUseCase sendMoneyUseCase =null;
   @PostMapping(path = "/sendMoney/{sourceAccountId}/{targetAccountId}/{amount}")
   ResponseEntity sendMoney(
           @PathVariable("sourceAccountId") Long sourceAccountId,
@@ -37,5 +39,7 @@ public class SendMoneyController {
               .build();
     }
   }
+  
+
 
 }
